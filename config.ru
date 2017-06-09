@@ -9,13 +9,13 @@ module Example
     get '/unauthenticated' do
       status 403
       <<-EOS
-      <h2>Unable to authenticate, sorry bud.</h2>
+      <h2>Access denied.</h2>
       <p>#{env['warden'].message}</p>
       EOS
     end
   end
 
-  class SimpleApp < Sinatra::Base
+  class DashboardApp < Sinatra::Base
     enable  :sessions
     enable  :raise_errors
     disable :show_exceptions
