@@ -32,18 +32,18 @@ module Dashboard
       if authenticated?
         erb :index
       else
-        redirect '/login'
+        redirect '/signin'
       end
     end
 
-    get '/login' do
+    get '/signin' do
       authenticate!
       redirect '/'
     end
 
-    get '/logout' do
+    get '/signout' do
       logout!
-      erb :logged_out
+      erb :signed_out
     end
   end
 
@@ -65,9 +65,9 @@ __END__
     <h1>Dashboard</h1>
     <ul>
     <% if authenticated? %>
-      <li><a href='/logout'>Sign out</a></li>
+      <li><a href='/signout'>Sign out</a></li>
     <% else %>
-      <li><a href='/login'>Sign in</a></li>
+      <li><a href='/signin'>Sign in</a></li>
     <% end %>
     </ul>
     <hr />
@@ -81,5 +81,5 @@ __END__
   Welcome <%= github_user.name %>
 </h2>
 
-@@ logged_out
+@@ signed_out
 <h2>Signed out</h2>
