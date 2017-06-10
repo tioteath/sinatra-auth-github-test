@@ -29,13 +29,11 @@ module Dashboard
     register Sinatra::Auth::Github
 
     get '/' do
-      authenticate!
-      erb :index
-    end
-
-    get '/profile' do
-      authenticate!
-      erb :profile
+      if authenticated?
+        erb :index
+      else
+        redirect '/login'
+      end
     end
 
     get '/login' do
@@ -45,7 +43,7 @@ module Dashboard
 
     get '/logout' do
       logout!
-#      redirect '/'
+      erb :logged_out
     end
   end
 
@@ -80,22 +78,12 @@ __END__
 </html>
 
 @@ index
-<% if authenticated? %>
-  <h2>
-    <img src='<%= env['warden'].user.avatar_url %>' />
-    Welcome <%= github_user.name %>
-  </h2>
-<% else %>
-  <h2>Welcome stranger</h2>
-<% end %>
+<h2>
+  <img src='<%= env['warden'].user.avatar_url %>' />
+  Welcome <%= github_user.name %>
+</h2>
+<a href="/logout">Log out</a>
 
-@@ profile
-<h2>Profile</h2>
-<dl>
-  <dt>Rails Org Member:</dt>
-  <dd><%= github_organization_access?('rails') %></dd>
-  <dt>Publicized Rails Org Member:</dt>
-  <dd><%= github_public_organization_access?('rails') %></dd>
-  <dt>Rails Committer Team Member:</dt>
-  <dd><%= github_team_access?(632) %></dd>
-</dl>
+@@ logged_out
+<h2>Logged out</h2>
+<a href="/login">Log in</a>
