@@ -29,6 +29,7 @@ module Dashboard
     register Sinatra::Auth::Github
 
     get '/' do
+      authenticate!
       erb :index
     end
 
@@ -44,7 +45,7 @@ module Dashboard
 
     get '/logout' do
       logout!
-      redirect '/'
+#      redirect '/'
     end
   end
 
