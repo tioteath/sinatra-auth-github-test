@@ -62,14 +62,12 @@ __END__
 @@ layout
 <html>
   <body>
-    <h1>Simple App Example</h1>
+    <h1>Dashboard</h1>
     <ul>
-      <li><a href='/'>Home</a></li>
-      <li><a href='/profile'>View profile</a><% if !env['warden'].authenticated? %> (implicit sign in)<% end %></li>
     <% if authenticated? %>
       <li><a href='/logout'>Sign out</a></li>
     <% else %>
-      <li><a href='/login'>Sign in</a> (explicit sign in)</li>
+      <li><a href='/login'>Sign in</a></li>
     <% end %>
     </ul>
     <hr />
@@ -82,8 +80,6 @@ __END__
   <img src='<%= env['warden'].user.avatar_url %>' />
   Welcome <%= github_user.name %>
 </h2>
-<a href="/logout">Log out</a>
 
 @@ logged_out
-<h2>Logged out</h2>
-<a href="/login">Log in</a>
+<h2>Signed out</h2>
