@@ -4,7 +4,7 @@ require "bundler/setup"
 require 'rack/ssl'
 require 'sinatra/auth/github'
 
-module Example
+module Dashboard
   class BadAuthentication < Sinatra::Base
     get '/unauthenticated' do
       status 403
@@ -50,13 +50,13 @@ module Example
 
   def self.app
     @app ||= Rack::Builder.new do
-      run SimpleApp
+      run DashboardApp
     end
   end
 end
 
 use Rack::SSL if ENV['RAILS_ENV'] == "production"
-run Example.app
+run Dashboard.app
 
 __END__
 
