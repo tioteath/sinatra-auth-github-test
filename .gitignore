@@ -57,3 +57,7 @@ build-iPhoneSimulator/
 .cache
 
 Rakefile
+
+.viminfo
+.psql_history
+**/.*.swp
